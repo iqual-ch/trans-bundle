@@ -1,0 +1,21 @@
+parameters:
+    translation.loader.doctrine_orm.class: TransBundle\Translation\Loader\DoctrineORMLoader
+    trans.translation.loggin_translator.class: TransBundle\Translation\LoggingTranslator
+
+services:
+    translation.loader.doctrine_orm:
+        class: %translation.loader.doctrine_orm.class%
+        arguments:
+            - @doctrine.orm.entity_manager
+        tags:
+            - {name: translation.loader, alias: orm }
+    
+    translator.logging:
+        class: %trans.translation.loggin_translator.class%
+        public: false
+        arguments:
+            - @translator.logging.inner
+            - @logger
+            - @doctrine.orm.entity_manager
+        tags:
+            - {name: monolog.logger, channel: translation}

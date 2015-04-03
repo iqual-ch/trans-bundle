@@ -1,0 +1,12 @@
+{
+    "name": "mpom/trans-bundle",
+    "type": "library",
+    "autoload": {
+        "psr-4": { "TransBundle\\": "" }
+    },
+    "require": {
+        "symfony/symfony": "2.6.*",
+        "doctrine/orm": "~2.2,>=2.2.3",
+        "doctrine/doctrine-bundle": "~1.2"
+    }
+}

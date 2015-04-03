@@ -1,0 +1,11 @@
+{% extends layout %}
+
+{% block content %}
+<div class="alert alert-{% if code == 0 %}success{% else %}danger{% endif %}">
+    {{ 'message.import_completed'|trans({}, 'TransBundle') }}
+</div>
+
+<h4>{{ 'label.log'|trans({}, 'TransBundle') }}
+<pre>{{ log }}</pre>
+<a href="{{ path('trans_gui') }}" class="btn btn-link">{{ 'link.back_to_gui'|trans({}, 'TransBundle') }}</a>
+{% endblock %}

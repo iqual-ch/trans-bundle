@@ -1,0 +1,23 @@
+trans_gui:
+    path:     /trans
+    defaults: { _controller: TransBundle:Default:index }
+    
+trans_gui_save:
+    path:     /trans/save
+    methods: [POST]
+    defaults: { _controller: TransBundle:Default:save }
+    
+trans_gui_delete:
+    path:     /trans/delete
+    methods: [GET]
+    defaults: { _controller: TransBundle:Default:delete }
+    
+trans_gui_clear_cache:
+    path:     /trans/clear-cache
+    methods: [GET]
+    defaults: { _controller: TransBundle:Default:clearCache }
+    
+trans_gui_import:
+    path:     /trans/import
+    methods: [GET]
+    defaults: { _controller: TransBundle:Default:import }
