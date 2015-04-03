@@ -1,23 +1,23 @@
 title:
     translations: Translations
-    
+    symfony_db_translations: Translations
+
 label:
     only_untranslated: Only untranslated
     original_string: Original string
     log: Output
-    
+
 button:
     submit: Save
     remove: Remove
     search: Search
-    
+
 link:
     reset: Reset
     clear_cache: Clear cache
     back_to_gui: Back to list
     import_from_files: Import from files
-    
+
 message:
     import_completed: Import finished
     translations_saved: Translations has been updated!
-    
