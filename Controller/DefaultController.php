@@ -53,7 +53,7 @@ class DefaultController extends Controller
         }
         $this->getDoctrine()->getConnection()->commit();
         
-        $this->addFlash('success', 'message.translations_saved');
+        $this->addFlash('success', $this->get('translator')->trans('message.translations_saved', array(), 'TransBundle'));
         $this->clearCacheAction();
         return $this->redirectToRoute('trans_gui', array('q' => $request->request->get('q')));
     }
