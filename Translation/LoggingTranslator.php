@@ -119,12 +119,23 @@ class LoggingTranslator implements TranslatorInterface
             $this->logger->debug('Translation use fallback catalogue.', array('id' => $id, 'domain' => $domain, 'locale' => $catalogue->getLocale()));
         } else {
             $this->logger->warning('Translation not found.', array('id' => $id, 'domain' => $domain, 'locale' => $catalogue->getLocale()));
-            $this->addTranslation($id, $domain, $catalogue->getLocale());
+            $this->addTranslation($id, $domain);
         }
     }
     
-    private function addTranslation($id, $domain, $locale)
+    /**
+     * Adds untranslated message to database.
+     * 
+     * @param string $id Message ID
+     * @param string $domain
+     * @return void
+     */
+    private function addTranslation($id, $domain)
     {
+        if (!$this->isValidString($id)) {
+            return;
+        }
+        
         if ($this->entityManager->getRepository('TransBundle:Message')->findOneByMessage($id)) {
             return;
         }
@@ -133,5 +144,16 @@ class LoggingTranslator implements TranslatorInterface
         $entity->setMessage($id);
         $this->entityManager->persist($entity);
         $this->entityManager->flush($entity);
+    }
+    
+    /**
+     * Checks if string contains a word.
+     * 
+     * @param string $message
+     * @return bool
+     */
+    private function isValidString($message)
+    {
+        return preg_match('/[a-zA-Z]/', $message);
     }
 }

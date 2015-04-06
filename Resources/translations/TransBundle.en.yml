@@ -15,9 +15,12 @@ button:
 link:
     reset: Reset
     clear_cache: Clear cache
+    clear_garbage: Clear garbage
     back_to_gui: Back to list
     import_from_files: Import from files
+    more_actions: More
 
 message:
     import_completed: Import finished
     translations_saved: Translations has been updated!
+    garbage_cleared: Garbage has been removed!

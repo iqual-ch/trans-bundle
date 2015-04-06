@@ -4,6 +4,7 @@ namespace TransBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr\Comparison;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class MessageRepository extends EntityRepository
@@ -44,4 +45,9 @@ class MessageRepository extends EntityRepository
         return $qb->getQuery()->getSingleResult(Query::HYDRATE_SINGLE_SCALAR);
     }
 
+    public function clearGarbage()
+    {
+        $sql = sprintf('DELETE FROM %s WHERE message NOT RLIKE "[a-zA-Z]"', $this->_class->getTableName());
+        return $this->_em->getConnection()->executeQuery($sql);
+    }
 }

@@ -92,4 +92,11 @@ class DefaultController extends Controller
             'layout' => $this->container->getParameter('trans.layout')
         ));
     }
+    
+    public function clearGarbageAction(Request $request)
+    {
+        $this->getDoctrine()->getManager()->getRepository('TransBundle:Message')->clearGarbage();
+        $this->addFlash('success', $this->get('translator')->trans('message.garbage_cleared', array(), 'TransBundle'));
+        return $this->redirectToRoute('trans_gui', array('q' => $request->request->get('q')));
+    }
 }

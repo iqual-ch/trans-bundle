@@ -33,13 +33,14 @@ class Message
     protected $message;
     
     /** 
-     * @ORM\Column(type="string", length=200) 
+     * @ORM\Column(type="string", length=200)
      */
     protected $domain;
  
     /** 
      * @var Translation[]
      * @ORM\OneToMany(targetEntity="Translation", mappedBy="message", cascade={"all"})
+     * @ORM\JoinColumn(name="translation_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $translations;
     
@@ -82,62 +83,113 @@ class Message
         return $this->message;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getDomain()
     {
         return $this->domain;
     }
 
+    /**
+     * 
+     * @return ArrayCollection
+     */
     public function getTranslations()
     {
         return $this->translations;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getFilename()
     {
         return $this->filename;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getHash()
     {
         return $this->hash;
     }
 
+    /**
+     * 
+     * @param int $id
+     * @return Message
+     */
     public function setId($id)
     {
         $this->id = $id;
         return $this;
     }
 
+    /**
+     * 
+     * @param string $message
+     * @return Message
+     */
     public function setMessage($message)
     {
         $this->message = $message;
         return $this;
     }
 
+    /**
+     * 
+     * @param string $domain
+     * @return Message
+     */
     public function setDomain($domain)
     {
         $this->domain = $domain;
         return $this;
     }
 
+    /**
+     * 
+     * @param array $translations
+     * @return Message
+     */
     public function setTranslations($translations)
     {
         $this->translations = $translations;
         return $this;
     }
 
+    /**
+     * 
+     * @param string $filename
+     * @return Message
+     */
     public function setFilename($filename)
     {
         $this->filename = $filename;
         return $this;
     }
     
+    /**
+     * 
+     * @param string $hash
+     * @return Message
+     */
     public function setHash($hash)
     {
         $this->hash = $hash;
         return $this;
     }
 
+    /**
+     * 
+     * @param string $locale
+     * @return boolean
+     */
     public function hasTranslation($locale)
     {
         foreach ($this->translations as $translation) {
@@ -148,10 +200,15 @@ class Message
         return false;
     }
     
+    /**
+     * @param Translation $translation
+     * @return Translation
+     */
     public function addTranslation(Translation $translation)
     {
         $translation->setMessage($this);
         $this->translations->add($translation);
+        return $this;
     }
     
     /**

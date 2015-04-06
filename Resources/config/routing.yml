@@ -21,3 +21,8 @@ trans_gui_import:
     path:     /trans/import
     methods: [GET]
     defaults: { _controller: TransBundle:Default:import }
+    
+trans_gui_clear_garbage:
+    path:     /trans/clear-garbage
+    methods: [GET]
+    defaults: { _controller: TransBundle:Default:clearGarbage }

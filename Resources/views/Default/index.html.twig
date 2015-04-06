@@ -15,76 +15,92 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-md-offset-4 text-right">
-                    <a class="btn btn-default" href="{{ path('trans_gui_import') }}">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="dropdown inline pull-right">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                            {{ 'link.more_actions'|trans({}, 'TransBundle') }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" >
+                            <li>
+                                <a href="{{ path('trans_gui_clear_cache') }}">
+                                    {{ 'link.clear_cache'|trans({}, 'TransBundle') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('trans_gui_clear_garbage', {q: query}) }}">
+                                    {{ 'link.clear_garbage'|trans({}, 'TransBundle') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                                
+                    <a class="btn btn-default pull-right" href="{{ path('trans_gui_import') }}" style="margin-right: 5px">
                         <i class="glyphicon glyphicon-import"></i> 
                         {{ 'link.import_from_files'|trans({}, 'TransBundle') }}
                     </a>
-                    <a class="btn btn-default" href="{{ path('trans_gui_clear_cache') }}">
-                        <i class="glyphicon glyphicon-refresh"></i> 
-                        {{ 'link.clear_cache'|trans({}, 'TransBundle') }}
-                    </a>
+
                 </div>
             </div>
             <div class="col-md-12">
-{#                <div class="col-md-2">
-                    <div class="checkbox">
-                        <label>
-                            {{ form_widget(form.only_untranslated) }}
-                            {{ form.only_untranslated.vars.label|trans({}, 'TransBundle') }}
-                        </label>
-                    </div>
-                </div>#}
+                {#                <div class="col-md-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            {{ form_widget(form.only_untranslated) }}
+                                            {{ form.only_untranslated.vars.label|trans({}, 'TransBundle') }}
+                                        </label>
+                                    </div>
+                                </div>#}
             </div>
         </form>
     </div>
     <div>
         {% for flashMessage in app.session.flashbag.get('success') %}
-        <div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-            {{ flashMessage }}
-        </div>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                {{ flashMessage }}
+            </div>
         {% endfor %}
-        
+
         <form action="{{ path('trans_gui_save') }}" method="post">
             <table class="table table-condensed">
-            <thead>
-                <tr>
-                    <th class="">{{ 'label.original_string'|trans({}, 'TransBundle') }}</th>
-                    {% for locale in locales %}
-                    <th class="col-md-2">{{ locale|trans }}</th>
-                    {% endfor %}
-                    <th class="col-md-1 text-right">
-                        <input type="submit" value="{{ 'button.submit'|trans({}, 'TransBundle') }}" class="btn btn-primary btn-block" />
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for message in messages %}
+                <thead>
                     <tr>
-                        <td title="{{ message.getDomain }}">{{ message.getMessage }}</td>
-                        {% for locale in locales %}
-                            <td>
-                                <textarea class="form-control" name="messages[{{ message.getId }}][{{ locale }}]">{{ message.getTranslationText(locale) }}</textarea>
-                            </td>
-                        {% endfor %}
-                        <td class="text-right">
-                            <a href="{{ path('trans_gui_delete', {id: message.getId}) }}" class="btn btn-danger">{{ 'button.remove'|trans({}, 'TransBundle') }}</a>
-                        </td>
+                        <th class="">{{ 'label.original_string'|trans({}, 'TransBundle') }}</th>
+                            {% for locale in locales %}
+                            <th class="col-md-2">{{ locale|trans }}</th>
+                            {% endfor %}
+                        <th class="col-md-1 text-right">
+                            <input type="submit" value="{{ 'button.submit'|trans({}, 'TransBundle') }}" class="btn btn-primary btn-block" />
+                        </th>
                     </tr>
-                {% endfor %}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="{{ locales|length + 1 }}" class="text-center">
-                        {{ paginator(total, per_page, 'trans_gui', app.request.get('page')|default(1)) }}
-                    </td>
-                    <th class="col-md-1 text-right">
-                        <input type="submit" value="{{ 'button.submit'|trans({}, 'TransBundle') }}" class="btn btn-primary btn-block" />
-                    </th>
-                </tr>
-            </tfoot>
-        </table>
+                </thead>
+                <tbody>
+                    {% for message in messages %}
+                        <tr>
+                            <td title="{{ message.getDomain }}">{{ message.getMessage }}</td>
+                            {% for locale in locales %}
+                                <td>
+                                    <textarea class="form-control" name="messages[{{ message.getId }}][{{ locale }}]">{{ message.getTranslationText(locale) }}</textarea>
+                                </td>
+                            {% endfor %}
+                            <td class="text-right">
+                                <a href="{{ path('trans_gui_delete', {id: message.getId}) }}" class="btn btn-danger">{{ 'button.remove'|trans({}, 'TransBundle') }}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="{{ locales|length + 1 }}" class="text-center">
+                            {{ paginator(total, per_page, 'trans_gui', app.request.get('page')|default(1)) }}
+                        </td>
+                        <th class="col-md-1 text-right">
+                            <input type="submit" value="{{ 'button.submit'|trans({}, 'TransBundle') }}" class="btn btn-primary btn-block" />
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
             <input type="hidden" name="q" value="{{ query }}" />
         </form>
     </div>
