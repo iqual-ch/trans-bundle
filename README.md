@@ -30,7 +30,7 @@ console assets:install --symlink
 ```
 
 # Configuration
-Make sure that you have enabled translator service in your config.yml.  
+Make sure that you have enabled translator service in your config.yml.
 In your config.yml file add new options:
 ```yml
 trans:
@@ -56,3 +56,5 @@ console trans:import # call to import translations from files to database
 **Note:**
 For every bundle and locale put enpty file into Resources/translations folder in format `<domain>.<locale>.orm`.
 For example: instead of `messages.en.yml` keep `messages.en.orm`.
+
+This bundle automatically adds untranslated strings to database at runtime.
