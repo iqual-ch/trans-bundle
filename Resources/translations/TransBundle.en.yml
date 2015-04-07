@@ -6,6 +6,14 @@ label:
     only_untranslated: Only untranslated
     original_string: Original string
     log: Output
+    within_locales: Within locales
+    search_in_translations: Search in translations
+    untranslated_only: Show untranslated only
+    
+help:
+    search_in_translations: Also use translation texts to match the query.
+    within_locales: Use only selected locales to match the query.
+    untranslated_only: Returns only rows which does not have a translations.
 
 button:
     submit: Save
@@ -24,3 +32,11 @@ message:
     import_completed: Import finished
     translations_saved: Translations has been updated!
     garbage_cleared: Garbage has been removed!
+
+select:
+    option:
+        all_domains: All domains
+        
+input:
+    placeholder:
+        type_to_search: Enter string or part to search. Accepts wildcards (eg. '%button%')

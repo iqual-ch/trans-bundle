@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use TransBundle\Command\ImportCommand;
 use TransBundle\Entity\MessageRepository;
+use TransBundle\Entity\SearchHelper;
+use TransBundle\Type\FilterType;
 
 class DefaultController extends Controller
 {
@@ -20,19 +22,24 @@ class DefaultController extends Controller
     {
         /* @var $repository MessageRepository */
         $repository = $this->getDoctrine()->getManager()->getRepository('TransBundle:Message');
-        $query = $request->query->get('q', '');
-        $page = $request->query->get('page', 1);
-        $perPage = $this->container->getParameter('trans.items_per_page'); 
         
-        $messages = $repository->search($query, $perPage, $page - 1);
+        $form = $this->createForm(new FilterType($repository->getDomains(), $this->container->getParameter('locales')));
+        $form->submit($request->query->all());
+        
+        $criterias = $form->getData();
+        $options = array(
+            'current_page' => $request->query->get('page', 1) - 1,
+            'per_page' => $this->container->getParameter('trans.items_per_page')
+        );
+        
+        $messages = $repository->search($criterias, $options);
         
         return $this->render('TransBundle:Default:index.html.twig', array(
-            'query' => $query,
             'messages' => $messages,
-            'total' => $messages->count(),
-            'per_page' => $perPage,
+            'per_page' => $options['per_page'],
             'locales' => $this->container->getParameter('trans.locales'),
-            'layout' => $this->container->getParameter('trans.layout')
+            'layout' => $this->container->getParameter('trans.layout'),
+            'form' => $form->createView()
         ));
     }
     

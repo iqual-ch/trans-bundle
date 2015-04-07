@@ -1,6 +1,7 @@
 <?php
 namespace TransBundle\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -58,11 +59,19 @@ class Message
     protected $filename;
     
     /**
+     *
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true) 
+     */
+    protected $createdAt;
+    
+    /**
      * 
      */
     public function __construct()
     {
         $this->translations = new ArrayCollection;
+        $this->createdAt = new DateTime;
     }
     
     /**
@@ -246,6 +255,26 @@ class Message
     public function preUpdate()
     {
         $this->hash = md5($this->message);
+    }
+    
+    /**
+     * 
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * 
+     * @param DateTime $createdAt
+     * @return Message
+     */
+    public function setCreatedAt(DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
     }
 
 }

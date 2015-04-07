@@ -9,7 +9,7 @@
         <link rel="icon" href="{{ asset('bundles/trans/favicon.ico') }}" type="image/x-icon">
         <link rel="shortcut icon" href="{{ asset('bundles/trans/favicon.ico') }}" type="image/x-icon">
         <title>{{ 'title.symfony_db_translations'|trans({}, 'TransBundle') }}</title>
-        <link href="{{ asset('bundles/trans/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/trans/css/vendor/bootstrap.min.css') }}" rel="stylesheet">
     </head>
 
     <body>
@@ -24,6 +24,7 @@
         <div class="container-fluid">
             {% block content '' %}
         </div>
-
+        <script type="text/javascript" src="{{ asset('bundles/trans/js/vendor/jquery.min.js') }}"
+        <script type="text/javascript" src="{{ asset('bundles/trans/js/vendor/bootstrap.min.js') }}"
     </body>
 </html>

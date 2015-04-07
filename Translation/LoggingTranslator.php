@@ -136,7 +136,11 @@ class LoggingTranslator implements TranslatorInterface
             return;
         }
         
-        if ($this->entityManager->getRepository('TransBundle:Message')->findOneByMessage($id)) {
+        $message = $this->entityManager->getRepository('TransBundle:Message')->findOneBy(array(
+            'message' => $id,
+            'domain' => $domain
+        ));
+        if ($message) {
             return;
         }
         $entity = new Message;
