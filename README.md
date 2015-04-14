@@ -19,16 +19,6 @@ Add to your AppKernel.php:
     }
 ```
 
-Import database structure:
-```bash
-console doctrine:schema:update --force
-```
-
-Dump assets:
-```bash
-console assets:install --symlink
-```
-
 # Configuration
 Make sure that you have enabled translator service in your config.yml.
 In your config.yml file add new options:
@@ -43,6 +33,16 @@ Add to app/config/routing.yml:
 trans_gui:
     resource: "@TransBundle/Resources/config/routing.yml"
     prefix:   /
+```
+
+Import database structure:
+```bash
+console doctrine:schema:update --force
+```
+
+Dump assets:
+```bash
+console assets:install --symlink
 ```
 
 # Usage
