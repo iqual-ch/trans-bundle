@@ -17,22 +17,30 @@
                         <tr>
                             <td>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div>
                                             {{ form_widget(form.search_in_translations) }}
-                                            <span title="{{ 'help.search_in_translations'|trans({}, 'TransBundle') }}">{{ form.search_in_translations.vars.label|trans({}, 'TransBundle') }}</span>
+                                            <span title="{{ 'help.search_in_translations'|trans({}, 'TransBundle') }}">
+                                                {{ form.search_in_translations.vars.label|trans({}, 'TransBundle') }}
+                                            </span>
                                         </div>
 
                                         <div>
                                             {{ form_widget(form.untranslated_only) }}
-                                            <span title="{{ 'help.untranslated_only'|trans({}, 'TransBundle') }}">{{ form.untranslated_only.vars.label|trans({}, 'TransBundle') }}</span>
+                                            <span title="{{ 'help.untranslated_only'|trans({}, 'TransBundle') }}">
+                                                {{ form.untranslated_only.vars.label|trans({}, 'TransBundle') }}
+                                            </span>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <span title="{{ 'help.within_locales'|trans({}, 'TransBundle') }}">{{ form.locales.vars.label|trans({}, 'TransBundle') }}:</span>
-                                        <div class="checkbox-inline" style="padding-left: 0;">
+                                    <div class="col-md-7">
+                                        <span title="{{ 'help.within_locales'|trans({}, 'TransBundle') }}" style="display: inline-block">
+                                            {{ form.locales.vars.label|trans({}, 'TransBundle') }}:
+                                        </span>
+                                        <div class="trans-available-locales">
                                             {% for element in form.locales %}
-                                            {{ form_widget(element) }} {{ element.vars.label|upper }} &nbsp;
+                                            <div class="checkbox-inline" style="padding-left: 0;">
+                                                {{ form_widget(element) }} {{ element.vars.label|upper }} &nbsp;
+                                            </div>
                                             {% endfor %}
                                         </div>
                                     </div>
@@ -123,5 +131,5 @@
             <input type="hidden" name="query" value="{{ form.query.vars.value }}" />
         </form>
     </div>
-    <script type="text/javascript" src="{{ asset('bundles/trans/js/transbundle.js') }}"
+    <script type="text/javascript" src="{{ asset('bundles/trans/js/transbundle.js') }}"></script>
 {% endblock %}

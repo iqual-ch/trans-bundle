@@ -24,7 +24,12 @@
         <div class="container-fluid">
             {% block content '' %}
         </div>
-        <script type="text/javascript" src="{{ asset('bundles/trans/js/vendor/jquery.min.js') }}"
-        <script type="text/javascript" src="{{ asset('bundles/trans/js/vendor/bootstrap.min.js') }}"
+        <style type="text/css">
+            .trans-available-locales {
+                padding-left: 20px;
+            }
+        </style>
+        <script type="text/javascript" src="{{ asset('bundles/trans/js/vendor/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/trans/js/vendor/bootstrap.min.js') }}"></script>
     </body>
 </html>
