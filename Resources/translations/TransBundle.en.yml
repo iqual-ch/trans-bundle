@@ -22,7 +22,7 @@ button:
 
 link:
     reset: Reset
-    clear_cache: Clear cache
+    clear_cache: Invalidate cache
     clear_garbage: Clear garbage
     back_to_gui: Back to list
     import_from_files: Import from files
@@ -30,7 +30,7 @@ link:
 
 message:
     import_completed: Import finished
-    translations_saved: Translations has been updated!
+    translations_saved: Translations has been updated! Don\' forget to invalidate cache!
     garbage_cleared: Garbage has been removed!
 
 select:
