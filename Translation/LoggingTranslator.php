@@ -49,6 +49,9 @@ class LoggingTranslator implements TranslatorInterface
     {
         $trans = $this->translator->trans($id, $parameters, $domain, $locale);
         $this->log($id, $domain, $locale);
+        if (trim($trans) == '') {
+            $trans = $id;
+        }
 
         return $trans;
     }
@@ -60,6 +63,9 @@ class LoggingTranslator implements TranslatorInterface
     {
         $trans = $this->translator->transChoice($id, $number, $parameters, $domain, $locale);
         $this->log($id, $domain, $locale);
+        if (trim($trans) == '') {
+            $trans = $id;
+        }
 
         return $trans;
     }
