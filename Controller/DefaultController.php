@@ -76,15 +76,21 @@ class DefaultController extends Controller
     
     public function clearCacheAction(Request $request)
     {
-        $command = new CacheClearCommand;
-        $command->setContainer($this->container);
-        $input = new ArrayInput(array());
-        $output = new BufferedOutput();
-        $code = $command->run($input, $output);
+        $env = $this->container->get('kernel')->getEnvironment();
+        $process = new Process('app/console cache:clear --env=' . $env, dirname(getcwd()));
+        $code = $process->run();
+        
+        while ($process->isRunning()) {
+            usleep(500);
+        }
+        
+        $this->addFlash('success', $this->get('translator')->trans('message.cache_cleared', array(), 'TransBundle'));
+        return $this->redirectToRoute('trans_gui');
+        
         
         return $this->render('TransBundle:Default:import.html.twig', array(
             'code' => $code,
-            'log' => $output->fetch(),
+            'log' => $process->getOutput(),
             'layout' => $this->container->getParameter('trans.layout')
         ));
     }

@@ -30,8 +30,9 @@ link:
 
 message:
     import_completed: Import finished
-    translations_saved: Translations has been updated! Don\' forget to invalidate cache!
+    translations_saved: Translations has been updated! Don't forget to invalidate cache!
     garbage_cleared: Garbage has been removed!
+    cache_cleared: Cache has been removed!
 
 select:
     option:

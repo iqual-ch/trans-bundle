@@ -62,6 +62,10 @@ class ImportCommand extends ContainerAwareCommand
                 $paths[] = $path;
             }
         }
+        
+        if (is_dir('app/Resources/translations')) {
+            $paths[] = 'app/Resources/translations';
+        }
 
         $finder = new Finder;
         $files = $finder->files()->in($paths)->name(sprintf('/.%s/', join('|', $formats)));
