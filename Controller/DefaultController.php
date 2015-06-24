@@ -2,11 +2,10 @@
 
 namespace TransBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Command\CacheClearCommand;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Process\Process;
@@ -48,6 +47,7 @@ class DefaultController extends Controller
     /**
      * 
      * @param Request $request
+     * @return RedirectResponse
      */
     public function saveAction(Request $request)
     {
@@ -66,6 +66,11 @@ class DefaultController extends Controller
         return $this->redirectToRoute('trans_gui', $request->query->all());
     }
     
+    /**
+     * 
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function deleteAction(Request $request)
     {
         $entity = $this->getDoctrine()->getManager()->getRepository('TransBundle:Message')->find($request->query->get('id'));
@@ -74,6 +79,11 @@ class DefaultController extends Controller
         return $this->redirectToRoute('trans_gui', $request->query->all());
     }
     
+    /**
+     * 
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function clearCacheAction(Request $request)
     {
         $env = $this->container->get('kernel')->getEnvironment();
@@ -85,16 +95,13 @@ class DefaultController extends Controller
         }
         
         $this->addFlash('success', $this->get('translator')->trans('message.cache_cleared', array(), 'TransBundle'));
-        return $this->redirectToRoute('trans_gui');
-        
-        
-        return $this->render('TransBundle:Default:import.html.twig', array(
-            'code' => $code,
-            'log' => $process->getOutput(),
-            'layout' => $this->container->getParameter('trans.layout')
-        ));
+        return $this->redirectToRoute('trans_gui', $request->query->all());
     }
     
+    /**
+     * 
+     * @return Response
+     */
     public function importAction()
     {
         $command = new ImportCommand;
@@ -110,6 +117,11 @@ class DefaultController extends Controller
         ));
     }
     
+    /**
+     * 
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function clearGarbageAction(Request $request)
     {
         $this->getDoctrine()->getManager()->getRepository('TransBundle:Message')->clearGarbage();

@@ -61,12 +61,12 @@
                         </button>
                         <ul class="dropdown-menu" >
                             <li>
-                                <a href="{{ path('trans_gui_clear_cache') }}">
+                                <a href="{{ path('trans_gui_clear_cache', app.request.query.all) }}">
                                     {{ 'link.clear_cache'|trans({}, 'TransBundle') }}
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ path('trans_gui_clear_garbage', {query: form.query.vars.value}) }}">
+                                <a href="{{ path('trans_gui_clear_garbage', app.request.query.all) }}">
                                     {{ 'link.clear_garbage'|trans({}, 'TransBundle') }}
                                 </a>
                             </li>
@@ -89,7 +89,7 @@
             </div>
         {% endfor %}
 
-        <form action="{{ path('trans_gui_save') }}" method="post">
+        <form action="{{ path('trans_gui_save', app.request.query.all) }}" method="post">
             <table class="table table-condensed">
                 <thead>
                     <tr>
@@ -112,7 +112,7 @@
                                 </td>
                             {% endfor %}
                             <td class="text-right">
-                                <a href="{{ path('trans_gui_delete', {id: message.getId}) }}" class="btn btn-danger">{{ 'button.remove'|trans({}, 'TransBundle') }}</a>
+                                <a href="{{ path('trans_gui_delete', app.request.query.all|merge({id: message.getId})) }}" class="btn btn-danger">{{ 'button.remove'|trans({}, 'TransBundle') }}</a>
                             </td>
                         </tr>
                     {% endfor %}
