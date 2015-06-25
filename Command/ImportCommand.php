@@ -63,10 +63,12 @@ class ImportCommand extends ContainerAwareCommand
             }
         }
         
-        if (is_dir('app/Resources/translations')) {
-            $paths[] = 'app/Resources/translations';
+        $appTranslations = realpath($kernel->getRootDir() . '/Resources/translations');
+        if (is_dir($appTranslations)) {
+            $paths[] = $appTranslations;
         }
-
+        
+        
         $finder = new Finder;
         $files = $finder->files()->in($paths)->name(sprintf('/.%s/', join('|', $formats)));
         foreach ($files as $file) {
