@@ -1,5 +1,5 @@
 {
-    "name": "mpom/trans-bundle",
+    "name": "iqual/trans-bundle",
     "type": "library",
     "autoload": {
         "psr-4": { "TransBundle\\": "" }
